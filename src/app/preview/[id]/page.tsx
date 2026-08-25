@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 
 export const dynamic = 'force-dynamic';
@@ -18,23 +18,31 @@ export default async function PreviewPage({ params }: { params: Promise<{ id: st
   const data = await getInvitation(id);
 
   if (!data) {
-    notFound();
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-4xl mx-auto px-6 py-10">
+          <h1 className="text-xl font-semibold mb-4">Preview</h1>
+          <p className="text-gray-500">Invitation not found.</p>
+        </div>
+      </div>
+    );
   }
 
   const designs = data.designs || [];
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
+    <div className="min-h-screen bg-gray-50">
+      <header className="border-b bg-white">
+        <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold">Preview</h1>
-            <p className="text-gray-600 text-sm mt-1">ID: {data.id}</p>
+            <h1 className="text-xl font-semibold tracking-tight">Preview</h1>
+            <p className="text-sm text-gray-500 mt-1">ID: {data.id}</p>
           </div>
-          <a href="/" className="text-sm underline">Back</a>
+          <Link href="/" className="text-sm underline">Home</Link>
         </div>
-
-        <div className="bg-white shadow rounded p-6 mb-6">
+      </header>
+      <main className="max-w-5xl mx-auto px-6 py-10">
+        <div className="bg-white border rounded-lg p-6 mb-6">
           <h2 className="text-lg font-semibold mb-2">{data.names}</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600">
             <div>
@@ -58,12 +66,12 @@ export default async function PreviewPage({ params }: { params: Promise<{ id: st
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {designs.length === 0 && (
-            <div className="col-span-full bg-white shadow rounded p-8 text-center text-gray-500">
+            <div className="col-span-full bg-white border rounded-lg p-8 text-center text-gray-500">
               No previews yet. Processing is async — check back later.
             </div>
           )}
           {designs.map((design: any) => (
-            <div key={design.id} className="bg-white shadow rounded p-4">
+            <div key={design.id} className="bg-white border rounded-lg p-4">
               <div className="text-sm font-medium mb-2">{design.template_id}</div>
               {design.url ? (
                 <img src={design.url} alt="design" className="w-full rounded" />
@@ -75,7 +83,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ id: st
             </div>
           ))}
         </div>
-      </div>
+      </main>
     </div>
   );
 }
