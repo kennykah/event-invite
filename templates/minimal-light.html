@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitation - Minimal Light</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Open Sans', sans-serif;
+      min-height: 100vh;
+      background: #fefefe;
+      color: #1f2937;
+    }
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+    .header p {
+      color: #6b7280;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+    }
+    .details {
+      text-align: center;
+      margin: 32px 0;
+    }
+    .details div {
+      margin: 12px 0;
+      font-size: 1.1rem;
+    }
+    .details label {
+      display: block;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 48px;
+      color: #6b7280;
+      font-size: 0.9rem;
+    }
+    .cta {
+      margin-top: 32px;
+      text-align: center;
+    }
+    .cta a {
+      display: inline-block;
+      padding: 12px 32px;
+      background: #111827;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <p>Vous êtes cordialement invité</p>
+      <h1>NAMES</h1>
+      <p>Cérémonie de mariage</p>
+    </div>
+    <div class="details">
+      <div>
+        <label>Date</label>
+        <span>DATE</span>
+      </div>
+      <div>
+        <label>Heure</label>
+        <span>TIME</span>
+      </div>
+      <div>
+        <label>Lieu</label>
+        <span>VENUE</span>
+      </div>
+      <div>
+        <label>Nombre d'invités</label>
+        <span>GUEST_COUNT</span>
+      </div>
+    </div>
+    <div class="cta">
+      <a href="#">Confirmer ma présence</a>
+    </div>
+    <div class="footer">
+      <p>Merci de votre présence</p>
+    </div>
+  </div>
+</body>
+</html>
