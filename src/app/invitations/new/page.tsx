@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { supabase } from '@/lib/supabase';
+
+const supabasePromise = import('@supabase/supabase-js');
 
 const styles = [
   { id: 'minimal-light', label: 'Minimal light' },
@@ -27,23 +28,37 @@ export default function NewInvitationPage() {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { data, error } = await supabase.from('invitations').insert({
-      ceremony_type: form.ceremony_type,
-      names: form.names,
-      date: form.date,
-      time: form.time,
-      venue: form.venue,
-      guest_count: form.guest_count,
-      colors: form.colors,
-      status: 'pending',
-      designs: [],
-    }).select('id').single();
+    try {
+      const { createClient } = await supabasePromise;
+      const client = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+      );
+      const { data, error } = await client
+        .from('invitations')
+        .insert({
+          ceremony_type: form.ceremony_type,
+          names: form.names,
+          date: form.date,
+          time: form.time,
+          venue: form.venue,
+          guest_count: form.guest_count,
+          colors: form.colors,
+          status: 'pending',
+          designs: [],
+        })
+        .select('id')
+        .single();
 
-    if (error) {
-      console.error(error);
-      alert('Submission failed');
-    } else {
-      setSubmitted(data.id);
+      if (error) {
+        console.error(error);
+        alert('Submission failed');
+      } else {
+        setSubmitted(data.id);
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Server error');
     }
     setLoading(false);
   };
