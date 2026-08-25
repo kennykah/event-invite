@@ -1,15 +1,15 @@
-import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
+import { supabase } from '@/lib/supabase';
 
 export const dynamic = 'force-dynamic';
 
 async function getInvitation(id: string) {
-  const { data } = await supabase
-    .from('invitations')
-    .select('*')
-    .eq('id', id)
-    .maybeSingle();
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return null;
+  const { createClient } = require('@supabase/supabase-js');
+  const client = createClient(url, key);
+  const { data } = await client.from('invitations').select('*').eq('id', id).maybeSingle();
   return data;
 }
 
@@ -31,7 +31,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ id: st
             <h1 className="text-2xl font-semibold">Preview</h1>
             <p className="text-gray-600 text-sm mt-1">ID: {data.id}</p>
           </div>
-          <Link href="/" className="text-sm underline">Back</Link>
+          <a href="/" className="text-sm underline">Back</a>
         </div>
 
         <div className="bg-white shadow rounded p-6 mb-6">

@@ -38,9 +38,10 @@ templates/
    - `colors text[]`
    - `photos text[]`
    - `designs jsonb`
-3. Set env vars:
+3. Set env vars locally:
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   Without them, `npm run build` will fail on `/api/submit`.
 4. Run `npm install`
 5. Run `npm run dev`
 
